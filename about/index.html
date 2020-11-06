@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh+CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="星径"><meta name="renderer" content="webkit"><meta name="copyright" content="星径"><meta name="keywords" content="星径的Blog"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>星径的博客</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 5.2.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">星径</div><div class="profile-signature">星河滚烫，你是人间理想</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>星径的博客</a></div><div class="intro-nav-label-box"><a href="/">主页</a><a href="/about/">关于</a><a href="/archives/">存档</a><a href="/tags/">标签</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">主页</a><a href="/about/">关于</a><a href="/archives/">存档</a><a href="/tags/">标签</a></div></i><div class="clear"></div></section></nav><h1>星径的博客</h1><h5>欢迎来到我的博客!</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto:737107664@qq.com" title="email"></a><a class="fa fa-github" href="star631.github.io" target="_blank" title="github"></a><a class="fa fa-weibo" href="https://weibo.com/u/7422552177?topnav=1&amp;wvr=6&amp;topsug=1&amp;is_all=1#_loginLayer_1604673378015" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article id="page"><h1></h1><div class="article-container"><h2 id="title-爱丽丝、43号庄园和兔子先生"><a href="#title-爱丽丝、43号庄园和兔子先生" class="headerlink" title="title: 爱丽丝、43号庄园和兔子先生"></a>title: <strong>爱丽丝、43号庄园和兔子先生</strong></h2><p>兔子先生告诉我，没有人能够离开「43号庄园」。</p>
+<p>庄园里那位凶恶的女厨子每时每刻都在紧盯着庄园的大门，所有试图逃跑的动物都被抓起来炖汤献给了公爵夫人。“但是你跟我们不一样！”兔子先生倒挂在砧板上，断开的脖子上插着一把锋利的切肉刀，叽叽呱呱地说道，“或许你能逃出去呢！来吧！拿上这把刀！它在关键时刻一定会派上用场！”</p>
+<p>我接过了兔子先生递来的刀子，但是刀子拔下来之后，他的头从脖子上掉了下来，摔到一旁的锅子里，再也没有浮起来。</p>
+<p>女厨子马上就要回来了，她看到兔子先生的头和刀不见了会怎么想呢？</p>
+<p>在她发现前，要离开这里。<br>但是刚走到门口，就听到了如同地震一般的巨大脚步声。“我闻到了——小姑娘的气味！”女厨子刚把臃肿的身材挤进狭小的厨房，就发出了嚎叫，“ 她拿走了小兔崽子的头！还有我的刀！我要把她抓回来做成汤！！”</p>
+<p>而我，趁机从她的围裙底下钻了出去，飞快地藏到厨房里去了。<br>那天晚上，餐桌上的兔子先生没有头。但是大家还是将就着把它的身体吃掉了。</p>
+<p>我把骨头要了过来，丢到柴房后面的水沟里。这样一来， 兔子先生就可以沿着水沟离开庄园了。它一直很想离开的。</p>
+<p>可喜可贺，真是可喜可贺。</p>
+<h2 id="毛毛虫、新朋友和死刑茶会"><a href="#毛毛虫、新朋友和死刑茶会" class="headerlink" title="毛毛虫、新朋友和死刑茶会"></a><strong>毛毛虫、新朋友和死刑茶会</strong></h2><p>我和毛毛虫先生说话的事情被公爵夫人知道了。她立刻暴跳如雷地命令厨子将我关进柴房里，没有命令绝不可以放出来。</p>
+<p>门被关上的时候,她的尖叫声还在门外飘荡：“ 她怎么可以和毛毛虫那种卑贱的东西说话！简直是神经病！”</p>
+<p>我感到非常难过，因为我不觉得温文尔雅的毛毛虫先生是什么卑贱的人。</p>
+<p>“不用理会她，她说的才是疯话哩。”毛毛虫先生正在用烟斗煮着茶，顶着一头红茶香味的烟雾坐在茶会椅子上：“我来为你介绍茶会的新成员，它今天带着许多苹果前来拜访，是个很有礼貌的人！”</p>
+<p>新朋友是一个大篮子，装着许许多多的金苹果，非常温柔，非常亲切。</p>
+<p>在封闭的43号庄园里，有新朋友是一件让人感到非常高兴的事情。</p>
+<p>我们的茶会进行得非常愉快。</p>
+<p>但当我们的茶会进行到一半的时候，柴房外传来了可怕的骚动。</p>
+<p>透过墙壁的缝隙，我看到公爵夫人不顾风度地胡乱狂奔，身后紧追着一群头上挂着红心的卫兵。</p>
+<p>红皇后的士兵轻易地把公爵夫人抓了起来，当着所有人的面处死了，并且宣布这座庄园从现在起属于红皇后所有！“要是被他们抓到，我们也会被处死的，毛毛虫先生在我身后说道，“我们的朋友，拿起武器，让我们为了生存而战吧！”</p>
+<p>后来，我们把所有入侵庄园的土兵都杀掉了。我把公爵夫人的尸体收殓了起来，擦干净血迹，放入棺材。虽然她是位非常残暴的人，但也有保持美丽的姿态睡在墓地的权利。</p>
+<p>大法官到来后，看到眼前的情形，宣布我必须参加三天后的审判。</p>
+<p>这样来我就能离开这座庄园了。</p>
+<p>本该是个让人高兴的事情，但是一想到早一步死去的兔子先生，我还是难过地流下了眼泪。</p>
+<h2 id="乌鸦先生、梦境日和兔子洞"><a href="#乌鸦先生、梦境日和兔子洞" class="headerlink" title="乌鸦先生、梦境日和兔子洞"></a><strong>乌鸦先生、梦境日和兔子洞</strong></h2><p>关于如何审判我，法官先生们讨论了好几天。最终他们决定将我送到乌鸦先生那里。</p>
+<p>乌鸦医生居住在钢铁城堡中，他们整日研究着各种各样的药剂，他们纷纷围上来，要为我治疗。</p>
+<p>“真是可怜的孩子，活在幻想中。这些银色的药丸能够让你好起来。”</p>
+<p>“吃下这些药之后，你不会再看到幻觉，你会变得跟正常人一样。”</p>
+<p>“幻觉是你想象出来的东西，不会影响到现实世界。一直依赖幻觉会让你自己变得弱小。”</p>
+<p>说这些话的时候，乌鸦医生的鸟喙一直戳着我的脸颊。于是我在钢铁城堡中住了半个月。这是一段非常开心的时光。</p>
+<p>没有残暴的皇后，不用动不动就被关进柴房，我和朋友们说话也不用小心翼翼的了。</p>
+<p>只是乌鸦们的眼神越来越忧虑了。</p>
+<p>我很感谢乌鸦医生，帮我确定了朋友们都是真实存在的。</p>
+<p>但是我不希望再给他们添麻烦，于是在一个午后跟朋友们一起逃走了。我们一起跳进了花园中的兔子洞，回到了43号庄园。</p>
+<p>我们发现废弃已久的庄园里站着一位新的客人。这位客人先生问我，是否愿意去参加一场有趣又疯狂的茶会。嗯…如果能让我带上朋友们的话，当然没什么不好呀。</p>
+<p>于是，我们来到了海中的一个小岛……</p>
+</div></article><nav class="cxo-page-nav"></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
